@@ -31,13 +31,26 @@ DString& DString::operator =(const String& b)
   return *this;
 }
 
+DString DString::FormatNew(const char *format, ...)
+{
+  DString NewString;
+  
+  va_list args;
+  va_start(args, format);
+  NewString.Format(format, args);
+  va_end(args);
+  
+  return NewString;
+}
+
 size_t DString::Format(const char *format, ...) 
 {
   va_list args;
   va_start(args, format);
   size_t NewSize = Format(format, args);
   va_end(args);
-
+ 
+  return NewSize;
 }
 
 size_t DString::Format(const char *format, va_list args) 
@@ -105,7 +118,7 @@ Almost the same as String::substring
 - Instead of "end" in has a Count (length) of the new string
 - First (start) can be negative, indicating First is relative to the right.
 */
-String DString::Mid(int32_t First, int32_t Count/*=-1*/)
+String DString::Mid(int32_t First, int32_t Count/*=-1*/) const
 {
   if (First < 0)                    // First is counted from right
   {

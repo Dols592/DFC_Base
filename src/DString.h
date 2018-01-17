@@ -5,6 +5,7 @@
 #define DPrint_h
 
 #include <WString.h>
+//#include <c_types.h>
  
 class DString: public String
 {
@@ -21,12 +22,14 @@ public: //String overrides
   const char* c_str();
 
 public:
+  static DString FormatNew(const char *format, ...);         // (= printf) Format string
+
   virtual size_t Format(const char *format, ...);         // (= printf) Format string
   virtual size_t Format(const char *format, va_list args);         // (= printf) Format string
   virtual size_t FormatCopy(const char *format, ...);
 
   virtual size_t AppendFormat(const char *format, ...);   // Append formated string
-  virtual String Mid(int32_t Start, int32_t Count=-1);         // Very close to String::substring
+  virtual String Mid(int32_t Start, int32_t Count=-1) const;         // Very close to String::substring
   virtual size_t AppendFront(const String& AddString);
 };  
 
